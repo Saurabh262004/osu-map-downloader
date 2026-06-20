@@ -1,7 +1,10 @@
 # osu-map-downloader
+
 Automatically download osu beatmaps and open them in game
+
 ---
+
 compile:
 ```
-pyinstaller --clean --paths=. --onefile Main.py
+pyinstaller --clean --paths=. --onefile --name osuMapDownloader Main.py
 ```
