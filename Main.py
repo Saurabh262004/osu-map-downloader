@@ -54,7 +54,7 @@ def main(url):
 	is_beatmap_or_set = (
 		parsed.netloc == 'osu.ppy.sh'
 		and len(parts) >= 2
-		and parts[0] in ('beatmaps', 'beatmapsets', 'b')
+		and parts[0] in ('beatmaps', 'beatmapsets', 'b', 's')
 		and parts[1].isdigit()
 	)
 
