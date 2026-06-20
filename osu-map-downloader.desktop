@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=osu Map Downloader
+Comment=Download osu beatmaps
+Exec=osuMapDownloader %u
+Terminal=false
+
+Categories=Network;WebBrowser;
+MimeType=x-scheme-handler/http;x-scheme-handler/https;
