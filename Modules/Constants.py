@@ -3,8 +3,15 @@ import os
 # Service name used to store credentials and settings
 SERVICE = 'osuMapDownloader'
 
-# Default browser to use when open urls in a browser
-BROWSER = 'firefox'
+AVAILABLE_BROWSERS: list[str] = [
+	'firefox',
+	'google-chrome-stable',
+	'microsoft-edge-stable',
+	'brave-browser',
+	'opera',
+	'operagx',
+	'vivaldi',
+]
 
 # File extensions browsers use when downloading files
 DOWNLOAD_FILE_EXTENSIONS: dict[str, str] = {

@@ -1,10 +1,11 @@
-from Modules.Constants import DOWNLOAD_FILE_EXTENSIONS, BROWSER
+from Modules.Constants import DOWNLOAD_FILE_EXTENSIONS
+from Modules.Settings import getDefaultBrowser
 from Modules.Helpers import openFile, openInBrowser
 
-def getDownloadFilePath(path, downloads, preDownloadFiles):
+def getDownloadFilePath(path, downloads, preDownloadFiles, browser):
 	downloaded = ''
 
-	if BROWSER == 'firefox':
+	if browser == 'firefox':
 		# split path by '.'
 		pathSplit = str(path).split('.')
 
@@ -43,6 +44,8 @@ def beatconnectProcess(downloadURL: str):
 	# list any .osz files in the Downloads folder before starting download
 	preDownloadFiles = set(downloads.glob("*.osz"))
 
+	browser = getDefaultBrowser()
+
 	# open the download link in browser
 	openInBrowser(downloadURL)
 
@@ -53,7 +56,7 @@ def beatconnectProcess(downloadURL: str):
 
 	# wait a certain ammount of time for the download to start
 	for _ in range(waitDownloadStart):
-		files = list(downloads.glob(f'*{DOWNLOAD_FILE_EXTENSIONS[BROWSER]}'))
+		files = list(downloads.glob(f'*{DOWNLOAD_FILE_EXTENSIONS[browser]}'))
 
 		# if new .osz download files are found, list the first one and exit loop
 		if files:
@@ -85,7 +88,7 @@ def beatconnectProcess(downloadURL: str):
 		return False
 
 	# file path for the downloaded .osz file
-	downloaded = getDownloadFilePath(partFile, downloads, preDownloadFiles)
+	downloaded = getDownloadFilePath(partFile, downloads, preDownloadFiles, browser)
 
 	if downloaded is False:
 		print('Could not resolve downloaded files path, opening original url in browser')

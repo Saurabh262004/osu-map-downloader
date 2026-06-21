@@ -1,7 +1,8 @@
 import subprocess
 import platform
-from Modules.Constants import BROWSER, BROWSER_URL_FLAG
+from Modules.Constants import BROWSER_URL_FLAG
 from Modules.Credentials import getClient
+from Modules.Settings import getDefaultBrowser
 from Modules.WindowsBrowsers import getBrowserPathWindows
 
 def buildBrowserArgs(browser: str, browserPath: str, url: str) -> list[str]:
@@ -11,13 +12,15 @@ def buildBrowserArgs(browser: str, browserPath: str, url: str) -> list[str]:
 	return [browserPath, url]
 
 def openInBrowser(url: str):
+	browser = getDefaultBrowser()
+
 	if platform.system() == "Windows":
-		browserPath = getBrowserPathWindows(BROWSER)
+		browserPath = getBrowserPathWindows(browser)
 		if browserPath:
-			subprocess.Popen(buildBrowserArgs(BROWSER, browserPath, url))
+			subprocess.Popen(buildBrowserArgs(browser, browserPath, url))
 			return
 
-	subprocess.Popen(buildBrowserArgs(BROWSER, BROWSER, url))
+	subprocess.Popen(buildBrowserArgs(browser, browser, url))
 
 def openFile(path: str):
 	system = platform.system()

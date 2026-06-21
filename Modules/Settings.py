@@ -26,3 +26,22 @@ def toggleAutoDownload():
 		disableAutoDownload()
 	else:
 		enableAutoDownload()
+
+def getDefaultBrowser():
+	browser = keyring.get_password(
+		SERVICE,
+		'browser'
+	)
+
+	if browser: return browser
+
+	setDefaultBrowser('firefox')
+
+	return 'firefox'
+
+def setDefaultBrowser(browser: str):
+	keyring.set_password(
+		SERVICE,
+		'browser',
+		browser
+	)
