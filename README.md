@@ -96,7 +96,7 @@ pip install -r requirements.txt
 Build the executable:
 
 ```bash
-pyinstaller --clean --paths=. --onefile --name osuMapDownloader Main.py
+pyinstaller --clean --paths=. --onefile --noconsole --name osuMapDownloader Main.py
 ```
 
 The executable will be created at:
