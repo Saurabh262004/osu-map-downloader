@@ -43,7 +43,7 @@ When an osu! beatmap URL is opened, the downloader can:
   - Download the Windows zip file from the latest release.
   - Extract the contents into a directory.
   - Navigate to the directory in command prompt.
-  - Run the `powershell -ExecutionPolicy Bypass -File .\Install.ps1`
+  - Run `powershell -ExecutionPolicy Bypass -File .\Install.ps1`
   - Set osu! Map Downloader as your default browser.
 
 - From Repo:
