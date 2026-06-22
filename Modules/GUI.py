@@ -139,7 +139,7 @@ def createIdleWindow():
 	root.resizable(False, False)
 
 	style = ttk.Style(root)
-	style.theme_use("clam")  # try: "alt", "default", "clam", "vista" (windows)
+	style.theme_use("clam")  #"alt", "default", "clam", "vista" (windows)
 
 	main = ttk.Frame(root, padding=20)
 	main.grid()
