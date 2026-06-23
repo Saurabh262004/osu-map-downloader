@@ -4,14 +4,223 @@ import keyring
 from Modules.Constants import SERVICE, AVAILABLE_BROWSERS
 from Modules.Settings import getAutoDownload, toggleAutoDownload, getDefaultBrowser, setDefaultBrowser
 
+def applyOsuTheme(root: tk.Tk):
+	style = ttk.Style(root)
+	style.theme_use("clam")
+
+	# =====================
+	# COLORS
+	# =====================
+
+	# BG = "#fff2f7"                 # main window background
+	BG = "#fdf5fa"
+
+	# TEXT = "#333333"               # normal text
+	TEXT = "#4a4a4a"
+
+	# ACCENT = "#f4bfd6"             # buttons
+	# ACCENT_HOVER = "#efadc9"
+	# ACCENT_PRESSED = "#e89bbb"
+
+	ACCENT = "#f7c4da"
+	ACCENT_HOVER = "#f4b2cf"
+	ACCENT_PRESSED = "#ee9fc2"
+
+	INPUT_BG = "#fffafd"           # entry/combobox field
+	INPUT_TEXT = "#333333"
+
+	DROPDOWN_BG = "#fffafd"        # combobox dropdown
+	DROPDOWN_TEXT = "#333333"
+
+	CHECKBOX_BG = BG
+
+	BORDER = "#e5c6d4"
+
+	DISABLED_BG = "#f0f0f0"
+	DISABLED_TEXT = "#888888"
+
+	style.configure(
+		"TEntry",
+		insertcolor=ACCENT
+	)
+
+	# =====================
+	# ROOT
+	# =====================
+
+	root.configure(bg=BG)
+
+	root.option_add("*Text.selectBackground", ACCENT)
+	root.option_add("*Text.selectForeground", TEXT)
+
+	root.option_add("*Entry.selectBackground", ACCENT)
+	root.option_add("*Entry.selectForeground", TEXT)
+
+	root.tk_setPalette(
+		background=BG,
+		foreground=TEXT,
+		activeBackground=ACCENT_HOVER,
+		activeForeground=TEXT,
+		selectBackground=ACCENT,
+		selectForeground=TEXT
+	)
+
+	# =====================
+	# FRAME
+	# =====================
+
+	style.configure(
+		"TFrame",
+		background=BG
+	)
+
+	# =====================
+	# LABEL
+	# =====================
+
+	style.configure(
+		"TLabel",
+		background=BG,
+		foreground=TEXT
+	)
+
+	# =====================
+	# BUTTON
+	# =====================
+
+	style.configure(
+		"TButton",
+		background=ACCENT,
+		foreground=TEXT,
+		bordercolor=BORDER,
+		lightcolor=ACCENT,
+		darkcolor=ACCENT,
+		padding=(10, 5)
+	)
+
+	style.map(
+		"TButton",
+		background=[
+			("pressed", ACCENT_PRESSED),
+			("active", ACCENT_HOVER)
+		],
+		foreground=[
+			("disabled", DISABLED_TEXT)
+		]
+	)
+
+	# =====================
+	# CHECKBUTTON
+	# =====================
+
+	style.configure(
+		"TCheckbutton",
+		background=CHECKBOX_BG,
+		foreground=TEXT
+	)
+
+	style.map(
+		"TCheckbutton",
+		background=[
+			("active", CHECKBOX_BG),
+			("selected", CHECKBOX_BG)
+		],
+		foreground=[
+			("disabled", DISABLED_TEXT)
+		]
+	)
+
+	# =====================
+	# ENTRY
+	# =====================
+
+	style.configure(
+		"TEntry",
+		fieldbackground=INPUT_BG,
+		foreground=INPUT_TEXT,
+		bordercolor=BORDER,
+		insertcolor=INPUT_TEXT
+	)
+
+	style.configure(
+		"TEntry",
+		fieldbackground=INPUT_BG,
+		foreground=INPUT_TEXT,
+		bordercolor=BORDER,
+		lightcolor=BORDER,
+		darkcolor=BORDER
+	)
+
+	style.map(
+		"TEntry",
+		bordercolor=[
+			("focus", ACCENT)
+		],
+		lightcolor=[
+			("focus", ACCENT)
+		],
+		darkcolor=[
+			("focus", ACCENT)
+		]
+	)
+
+	# =====================
+	# COMBOBOX
+	# =====================
+
+	style.configure(
+		"TCombobox",
+		fieldbackground=INPUT_BG,
+		background=INPUT_BG,
+		foreground=INPUT_TEXT,
+		arrowcolor=TEXT,
+		bordercolor=BORDER
+	)
+
+	style.map(
+		"TCombobox",
+		fieldbackground=[
+			("readonly", INPUT_BG)
+		],
+		background=[
+			("readonly", INPUT_BG),
+			("active", INPUT_BG)
+		],
+		foreground=[
+			("readonly", INPUT_TEXT)
+		]
+	)
+
+	# =====================
+	# OPTIONAL: TK WIDGETS
+	# =====================
+
+	root.option_add("*Background", BG)
+	root.option_add("*Foreground", TEXT)
+	root.option_add("*Entry.Background", INPUT_BG)
+	root.option_add("*Entry.Foreground", INPUT_TEXT)
+
+	# =====================
+	# COMBOBOX DROPDOWN LIST
+	# =====================
+
+	try:
+		root.tk.eval(f'''
+			option add *TCombobox*Listbox.background {DROPDOWN_BG}
+			option add *TCombobox*Listbox.foreground {DROPDOWN_TEXT}
+			option add *TCombobox*Listbox.selectBackground {ACCENT}
+			option add *TCombobox*Listbox.selectForeground {TEXT}
+		''')
+	except:
+		pass
+
 # tk gui for asking to either 1. download beatmap, 2. open url in browser
 def askBeatmapAction() -> bool | None:
 	root = tk.Tk()
 	root.title("osu! Map Downloader")
 	root.resizable(False, False)
 
-	style = ttk.Style(root)
-	style.theme_use("clam")
+	applyOsuTheme(root)
 
 	result = None
 
@@ -78,8 +287,7 @@ def editCredentials():
 	root.title("osu! API Credentials")
 	root.resizable(False, False)
 
-	style = ttk.Style(root)
-	style.theme_use("clam")
+	applyOsuTheme(root)
 
 	main = ttk.Frame(root, padding=20)
 	main.grid()
@@ -131,8 +339,7 @@ def createIdleWindow():
 	root.title("osu! Map Downloader")
 	root.resizable(False, False)
 
-	style = ttk.Style(root)
-	style.theme_use("clam")  #"alt", "default", "clam", "vista" (windows)
+	applyOsuTheme(root)
 
 	main = ttk.Frame(root, padding=20)
 	main.grid()
