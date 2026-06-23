@@ -40,6 +40,8 @@ fi
 DESKTOP_NAME="osuMapDownloader.desktop"
 SOURCE_DESKTOP="$SCRIPT_DIR/$DESKTOP_NAME"
 
+cp "$SCRIPT_DIR/assets/icon.png" "$DIST_DIR/icon.png"
+
 if [ ! -f "$SOURCE_DESKTOP" ]; then
 	echo "Error: Could not find $DESKTOP_NAME next to this script." >&2
 	exit 1

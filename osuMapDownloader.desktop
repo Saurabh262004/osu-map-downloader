@@ -3,6 +3,7 @@ Version=1.0
 Type=Application
 Name=osu Map Downloader
 Comment=Download osu beatmaps
+Icon=/opt/osuMapDownloader/icon.png
 Exec=osuMapDownloader %u
 Terminal=false
 

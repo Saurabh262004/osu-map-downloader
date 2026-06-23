@@ -75,7 +75,7 @@ pip install -r requirements.txt
 Build the executable:
 
 ```bash
-pyinstaller --clean --paths=. --onedir --noconsole --name osuMapDownloader Entry.py
+pyinstaller --clean --paths=. --onedir --noconsole --icon=assets/icon.ico --name osuMapDownloader Entry.py
 ```
 
 The executable bundle will be created at:
@@ -87,6 +87,12 @@ dist/osuMapDownloader/
 ---
 
 ## Manual Installation (Linux)
+
+Copy the icon into the bundle:
+
+```bash
+sudo cp assets/icon.png dist/osuMapDownloader/icon.png
+```
 
 Install the bundle:
 
