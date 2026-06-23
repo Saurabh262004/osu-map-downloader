@@ -1,4 +1,4 @@
-from Modules.Constants import SERVICE
+from Modules.Constants import SERVICE, TOKEN_URL
 
 def getCredentials():
 	import keyring
@@ -29,16 +29,18 @@ def getCredentials():
 
 	return clientID, clientSecret
 
-# get osu client from credentials
-def getClient():
-	import osu
+def getAccessToken() -> str:
+	import requests
 
 	clientID, clientSecret = getCredentials()
 
-	client = osu.Client.from_credentials(
-		clientID,
-		clientSecret,
-		None
-	)
+	response = requests.post(TOKEN_URL, data={
+		"client_id": clientID,
+		"client_secret": clientSecret,
+		"grant_type": "client_credentials",
+		"scope": "public",
+	})
 
-	return client
+	response.raise_for_status()
+
+	return response.json()["access_token"]

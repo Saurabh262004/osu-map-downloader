@@ -1,3 +1,2 @@
-osu.py
 keyring
 pyinstaller

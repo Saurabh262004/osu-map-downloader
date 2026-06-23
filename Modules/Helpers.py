@@ -1,6 +1,6 @@
 import subprocess
 import platform
-from Modules.Constants import BROWSER_URL_FLAG
+from Modules.Constants import BROWSER_URL_FLAG, BASE_URL
 
 def buildBrowserArgs(browser: str, browserPath: str, url: str) -> list[str]:
 	flag = BROWSER_URL_FLAG.get(browser.lower())
@@ -34,15 +34,26 @@ def openFile(path: str):
 	else:
 		subprocess.run(["xdg-open", path])
 
-def resolveBeatmapsetID(beatmpID: int) -> int | None:
-	from Modules.Credentials import getClient
+def getBeatmap(token: str, beatmapID: int):
+	import requests
 
-	client = getClient()
+	response = requests.get(
+		f"{BASE_URL}/beatmaps/{beatmapID}",
+		headers={"Authorization": f"Bearer {token}"},
+	)
+
+	response.raise_for_status()
+
+	return response.json()
+
+def resolveBeatmapsetID(beatmpID: int) -> int | None:
+	from Modules.Credentials import getAccessToken
 
 	try:
-		return client.get_beatmap(
+		return getBeatmap(
+			getAccessToken(),
 			beatmpID
-		).beatmapset_id
+		)['beatmapset_id']
 	except:
 		return None
 

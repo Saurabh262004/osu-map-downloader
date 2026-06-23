@@ -1,6 +1,5 @@
 def directDownloadProcess(downloadURL: str):
 	import requests
-	import zipfile
 	from pathlib import Path
 	from Modules.Helpers import openFile
 
@@ -56,19 +55,10 @@ def directDownloadProcess(downloadURL: str):
 			if chunk:
 				f.write(chunk)
 
-	try:
-		with zipfile.ZipFile(filePath) as z:
-			hasOSU = any(
-				name.endswith(".osu")
-				for name in z.namelist()
-			)
+	with open(filePath, "rb") as f:
+		magic = f.read(4)
 
-		if not hasOSU:
-			print("Downloaded archive contains no .osu files")
-			filePath.unlink(missing_ok=True)
-			return False
-
-	except zipfile.BadZipFile:
+	if magic != b"PK\x03\x04":
 		print("Downloaded file is not a valid zip")
 		filePath.unlink(missing_ok=True)
 		return False

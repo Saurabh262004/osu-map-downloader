@@ -3,6 +3,12 @@ import os
 # Service name used to store credentials and settings
 SERVICE = 'osuMapDownloader'
 
+# osu api v2 base url
+BASE_URL = "https://osu.ppy.sh/api/v2"
+
+# osu api oauth token url
+TOKEN_URL = "https://osu.ppy.sh/oauth/token"
+
 AVAILABLE_BROWSERS: list[str] = [
 	'firefox',
 	'google-chrome-stable',
