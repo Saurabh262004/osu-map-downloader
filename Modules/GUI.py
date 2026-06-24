@@ -214,6 +214,11 @@ def applyOsuTheme(root: tk.Tk):
 	except:
 		pass
 
+def onTop(root: tk.Tk):
+	root.attributes("-topmost", True)
+	root.lift()
+	root.focus_force()
+
 # tk gui for asking to either 1. download beatmap, 2. open url in browser
 def askBeatmapAction() -> bool | None:
 	root = tk.Tk()
@@ -279,6 +284,9 @@ def askBeatmapAction() -> bool | None:
 	root.protocol("WM_DELETE_WINDOW", cancel)
 
 	root.mainloop()
+
+	onTop(root)
+
 	return result
 
 # tk gui for editing credentials
@@ -331,6 +339,8 @@ def editCredentials():
 		text="Save",
 		command=save
 	).grid(row=3, column=0, columnspan=2, pady=(15, 0))
+
+	onTop(root)
 
 	root.mainloop()
 
@@ -397,5 +407,7 @@ def createIdleWindow():
 	# small spacing consistency
 	for i in range(2):
 		main.columnconfigure(i, weight=1)
+
+	onTop(root)
 
 	root.mainloop()
