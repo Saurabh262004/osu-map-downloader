@@ -226,6 +226,7 @@ def askBeatmapAction() -> bool | None:
 	root.resizable(False, False)
 
 	applyOsuTheme(root)
+	onTop(root)
 
 	result = None
 
@@ -285,8 +286,6 @@ def askBeatmapAction() -> bool | None:
 
 	root.mainloop()
 
-	onTop(root)
-
 	return result
 
 # tk gui for editing credentials
@@ -296,6 +295,7 @@ def editCredentials():
 	root.resizable(False, False)
 
 	applyOsuTheme(root)
+	onTop(root)
 
 	main = ttk.Frame(root, padding=20)
 	main.grid()
@@ -340,8 +340,6 @@ def editCredentials():
 		command=save
 	).grid(row=3, column=0, columnspan=2, pady=(15, 0))
 
-	onTop(root)
-
 	root.mainloop()
 
 def createIdleWindow():
@@ -350,6 +348,7 @@ def createIdleWindow():
 	root.resizable(False, False)
 
 	applyOsuTheme(root)
+	onTop(root)
 
 	main = ttk.Frame(root, padding=20)
 	main.grid()
@@ -407,7 +406,5 @@ def createIdleWindow():
 	# small spacing consistency
 	for i in range(2):
 		main.columnconfigure(i, weight=1)
-
-	onTop(root)
 
 	root.mainloop()
