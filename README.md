@@ -27,10 +27,9 @@ When an osu! beatmap URL is opened, the downloader can:
 ### Linux
 
 - From Release: (unavailable right now)
-  - Download the Linux zip file from the latest release.
+  - Download the `Linux.tar.gz` file from the latest release.
   - Extract the contents into a directory.
-  - Make the `Install.sh` executable as a program.
-  - Run `Install.sh` with terminal.
+  - Run `Install.sh`.
 
 - From Repo:
   - [Build](#Building) the executable.
@@ -40,10 +39,8 @@ When an osu! beatmap URL is opened, the downloader can:
 ### Windows
 
 - From Release: (unavailable right now)
-  - Download the Windows zip file from the latest release.
-  - Extract the contents into a directory.
-  - Navigate to the directory in command prompt.
-  - Run `powershell -ExecutionPolicy Bypass -File .\Install.ps1`
+  - Download and run the `win-setup.exe`.
+  - Follow the installation instructions.
   - Set osu! Map Downloader as your default browser.
 
 - From Repo:
