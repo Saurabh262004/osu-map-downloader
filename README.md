@@ -26,7 +26,7 @@ When an osu! beatmap URL is opened, the downloader can:
 
 ### Linux
 
-- From Release: (unavailable right now)
+- From Release:
   - Download the `Linux.tar.gz` file from the latest release.
   - Extract the contents into a directory.
   - Run `Install.sh`.
@@ -38,7 +38,7 @@ When an osu! beatmap URL is opened, the downloader can:
 
 ### Windows
 
-- From Release: (unavailable right now)
+- From Release:
   - Download and run the `win-setup.exe`.
   - Follow the installation instructions.
   - Set osu! Map Downloader as your default browser.
