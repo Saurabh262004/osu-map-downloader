@@ -8,10 +8,6 @@ def applyOsuTheme(root: tk.Tk):
 	style = ttk.Style(root)
 	style.theme_use("clam")
 
-	# =====================
-	# COLORS
-	# =====================
-
 	# BG = "#fff2f7"                 # main window background
 	BG = "#fdf5fa"
 
@@ -44,9 +40,7 @@ def applyOsuTheme(root: tk.Tk):
 		insertcolor=ACCENT
 	)
 
-	# =====================
 	# ROOT
-	# =====================
 
 	root.configure(bg=BG)
 
@@ -65,18 +59,14 @@ def applyOsuTheme(root: tk.Tk):
 		selectForeground=TEXT
 	)
 
-	# =====================
 	# FRAME
-	# =====================
 
 	style.configure(
 		"TFrame",
 		background=BG
 	)
 
-	# =====================
 	# LABEL
-	# =====================
 
 	style.configure(
 		"TLabel",
@@ -84,9 +74,7 @@ def applyOsuTheme(root: tk.Tk):
 		foreground=TEXT
 	)
 
-	# =====================
 	# BUTTON
-	# =====================
 
 	style.configure(
 		"TButton",
@@ -109,9 +97,7 @@ def applyOsuTheme(root: tk.Tk):
 		]
 	)
 
-	# =====================
 	# CHECKBUTTON
-	# =====================
 
 	style.configure(
 		"TCheckbutton",
@@ -130,9 +116,7 @@ def applyOsuTheme(root: tk.Tk):
 		]
 	)
 
-	# =====================
 	# ENTRY
-	# =====================
 
 	style.configure(
 		"TEntry",
@@ -164,9 +148,7 @@ def applyOsuTheme(root: tk.Tk):
 		]
 	)
 
-	# =====================
 	# COMBOBOX
-	# =====================
 
 	style.configure(
 		"TCombobox",
@@ -191,18 +173,14 @@ def applyOsuTheme(root: tk.Tk):
 		]
 	)
 
-	# =====================
-	# OPTIONAL: TK WIDGETS
-	# =====================
+	# TK WIDGETS
 
 	root.option_add("*Background", BG)
 	root.option_add("*Foreground", TEXT)
 	root.option_add("*Entry.Background", INPUT_BG)
 	root.option_add("*Entry.Foreground", INPUT_TEXT)
 
-	# =====================
 	# COMBOBOX DROPDOWN LIST
-	# =====================
 
 	try:
 		root.tk.eval(f'''
