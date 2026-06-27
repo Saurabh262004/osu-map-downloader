@@ -1,4 +1,7 @@
-def directDownloadProcess(downloadURL: str):
+# create a small tk window at top-left corner of the screen, put it on top
+# make one label and update that label as progress goes on:
+
+def directDownloadProcess(downloadURL: str, root, label):
 	import requests
 	from pathlib import Path
 	from Modules.Helpers import openFile
@@ -18,6 +21,9 @@ def directDownloadProcess(downloadURL: str):
 	)
 
 	response.raise_for_status()
+
+	label.config(text=f"Validating content...")
+	root.update_idletasks()
 
 	contentType = (
 		response.headers
@@ -48,6 +54,9 @@ def directDownloadProcess(downloadURL: str):
 
 	filePath = downloads / filename
 
+	label.config(text=f"Writing to disk...")
+	root.update_idletasks()
+
 	with open(filePath, "wb") as f:
 		for chunk in response.iter_content(
 			chunk_size=8192
@@ -62,6 +71,9 @@ def directDownloadProcess(downloadURL: str):
 		print("Downloaded file is not a valid zip")
 		filePath.unlink(missing_ok=True)
 		return False
+
+	label.config(text=f"Opening file...")
+	root.update_idletasks()
 
 	openFile(str(filePath))
 

@@ -217,7 +217,6 @@ def applyOsuTheme(root: tk.Tk):
 def onTop(root: tk.Tk):
 	root.attributes("-topmost", True)
 	root.lift()
-	root.focus_force()
 
 # tk gui for asking to either 1. download beatmap, 2. open url in browser
 def askBeatmapAction() -> bool | None:
@@ -227,6 +226,7 @@ def askBeatmapAction() -> bool | None:
 
 	applyOsuTheme(root)
 	onTop(root)
+	root.focus_force()
 
 	result = None
 
@@ -349,6 +349,7 @@ def createIdleWindow():
 
 	applyOsuTheme(root)
 	onTop(root)
+	root.focus_force()
 
 	main = ttk.Frame(root, padding=20)
 	main.grid()
@@ -408,3 +409,26 @@ def createIdleWindow():
 		main.columnconfigure(i, weight=1)
 
 	root.mainloop()
+
+def createProgressWindow() -> tuple[tk.Tk, ttk.Label]:
+	root = tk.Tk()
+	root.title("Download Progress")
+	root.geometry("200x50+0+0")
+	root.resizable(False, False)
+
+	applyOsuTheme(root)
+	onTop(root)
+
+	main = ttk.Frame(root)
+	main.pack(expand=True, fill="both", padx=10, pady=10)
+
+	label = ttk.Label(
+		main,
+		text="Starting download...",
+		font=("Segoe UI", 10)
+	)
+	label.pack(expand=True, fill="both")
+
+	root.update_idletasks()
+
+	return root, label

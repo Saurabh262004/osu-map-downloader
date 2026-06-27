@@ -1,28 +1,21 @@
-import sys
 from traceback import print_exc
 from urllib.parse import urlparse
 from Modules.Helpers import openInBrowser, resolveBeatmapsetID, getDownloadURL
-from Modules.GUI import askBeatmapAction, createIdleWindow
+from Modules.GUI import askBeatmapAction
 
-def downloadBeatmapset(url: str, service: str):
+def startProcess(beatmapsetID: int, root, label):
 	from Modules.DirectDownload import directDownloadProcess
-	from Modules.Beatconnect import beatconnectProcess
 
-	if service == 'beatconnect':
-		return beatconnectProcess(url)
-
-	if service in {'nerinyan', 'catboy', 'sayobot'}:
-		return directDownloadProcess(url)
-
-def startProcess(beatmapsetID: int):
 	services = [
 		'nerinyan',
 		'catboy',
-		'sayobot',
-		'beatconnect'
+		'beatconnect',
+		'sayobot'
 	]
 
 	for service in services:
+		label.config(text=f'Trying {service}...')
+		root.update_idletasks()
 		print(f'Trying {service}')
 
 		try:
@@ -31,9 +24,10 @@ def startProcess(beatmapsetID: int):
 				service
 			)
 
-			if downloadBeatmapset(
+			if directDownloadProcess(
 				downloadURL,
-				service
+				root,
+				label
 			):
 				print(f'Success via {service}')
 				return True
@@ -80,13 +74,20 @@ def main(url):
 			openInBrowser(url)
 			return None
 
+	from Modules.GUI import createProgressWindow
+	root, label = createProgressWindow()
+
 	URLType = parts[0]
 	beatmapsetID = int(parts[1])
 
 	# it it's a beatmap url, get the beatmapset id via osu api v2
 	if URLType == 'beatmaps' or URLType == 'b':
 		print('resolving beatmapset id')
+		label.config(text=f"Resolving beatmapset id...")
+		root.update_idletasks()
+
 		beatmapsetID = resolveBeatmapsetID(beatmapsetID)
+
 		print('done.')
 
 	print(f'Beatmapset ID: {beatmapsetID}')
@@ -94,11 +95,15 @@ def main(url):
 	# if the beatmapset id cannon be resolved, open the url in browser and return
 	if beatmapsetID is None:
 		print("beatmapset id could not be resolved")
+		label.config(text="Beatmapset id could not be resolved")
+		root.update_idletasks()
+
 		openInBrowser(url)
+
 		return None
 
 	try:
-		downloadSuccess = startProcess(beatmapsetID)
+		downloadSuccess = startProcess(beatmapsetID, root, label)
 
 		if not downloadSuccess:
 			openInBrowser(url)
@@ -106,5 +111,7 @@ def main(url):
 	except Exception as e:
 		print('Something unexpected happened:')
 		print(e)
+		label.config(text="An error occurred while downloading")
+		root.update_idletasks()
 		print('opening original url in the browser')
 		openInBrowser(url)
