@@ -10,11 +10,11 @@ RequestExecutionLevel user
 InstallDir       "$LOCALAPPDATA\Programs\osuMapDownloader"
 InstallDirRegKey HKCU "Software\osuMapDownloader" "InstallDir"
 
-VIProductVersion "1.1.0"
+VIProductVersion "1.1.0.0"
 VIAddVersionKey /LANG=0 "ProductName"     "osu! Map Downloader"
 VIAddVersionKey /LANG=0 "FileDescription" "osu! Map Downloader Setup"
-VIAddVersionKey /LANG=0 "FileVersion"     "1.1.0"
-VIAddVersionKey /LANG=0 "ProductVersion"  "1.1.0"
+VIAddVersionKey /LANG=0 "FileVersion"     "1.1.0.0"
+VIAddVersionKey /LANG=0 "ProductVersion"  "1.1.0.0"
 VIAddVersionKey /LANG=0 "LegalCopyright"  "Copyright (c) 2026 Saurabh"
 
 !define MUI_ABORTWARNING
