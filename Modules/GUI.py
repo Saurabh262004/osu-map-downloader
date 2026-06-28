@@ -390,9 +390,8 @@ def createIdleWindow():
 
 def createProgressWindow() -> tuple[tk.Tk, ttk.Label]:
 	root = tk.Tk()
-	root.title("Download Progress")
+	root.overrideredirect(True)
 	root.geometry("200x50+0+0")
-	root.resizable(False, False)
 
 	applyOsuTheme(root)
 	onTop(root)
