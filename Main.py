@@ -1,10 +1,14 @@
 from traceback import print_exc
 from urllib.parse import urlparse
-from Modules.Helpers import openInBrowser, resolveBeatmapsetID, getDownloadURL
+from Modules.Helpers import openInBrowser, resolveBeatmapsetID, getDownloadURLs
 from Modules.GUI import askBeatmapAction
 
 def startProcess(beatmapsetID: int, root, label):
-	from Modules.DirectDownload import directDownloadProcess
+	from Modules.Download import download
+	from Modules.Settings import getVideoDownloadPreference
+	import requests
+
+	videoPreference = getVideoDownloadPreference() == '1'
 
 	services = [
 		'nerinyan',
@@ -16,21 +20,45 @@ def startProcess(beatmapsetID: int, root, label):
 	for service in services:
 		label.config(text=f'Trying {service}...')
 		root.update_idletasks()
-		print(f'Trying {service}')
+
+		print(f'Trying {service}...')
+
+		downloadURLs = getDownloadURLs(
+			beatmapsetID,
+			service
+		)
+
+		if downloadURLs is None:
+			print(f'No download URLs for {service}')
+			continue
+
+		downloadURL = downloadURLs[0] if videoPreference else downloadURLs[1]
 
 		try:
-			downloadURL = getDownloadURL(
-				beatmapsetID,
-				service
-			)
-
-			if directDownloadProcess(
+			if download(
 				downloadURL,
 				root,
 				label
 			):
 				print(f'Success via {service}')
 				return True
+
+		# if it's a requests.exceptions.HTTPError, try the other download URL (video / no video)
+		except requests.exceptions.HTTPError as e:
+			print(f'{service} failed with HTTPError, trying the other download URL...')
+			try:
+				if download(
+					downloadURLs[1] if videoPreference else downloadURLs[0],
+					root,
+					label
+				):
+					print(f'Success via {service} (other download URL)')
+					return True
+
+			except Exception as e:
+				print(f'{service} failed with the other download URL:')
+				print(e)
+				print_exc()
 
 		except Exception as e:
 			print(f'{service} failed:')

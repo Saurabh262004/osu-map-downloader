@@ -1,13 +1,13 @@
 import os
 
 # Service name used to store credentials and settings
-SERVICE = 'osuMapDownloader'
+SERVICE: str = 'osuMapDownloader'
 
 # osu api v2 base url
-BASE_URL = "https://osu.ppy.sh/api/v2"
+BASE_URL: str = "https://osu.ppy.sh/api/v2"
 
 # osu api oauth token url
-TOKEN_URL = "https://osu.ppy.sh/oauth/token"
+TOKEN_URL: str = "https://osu.ppy.sh/oauth/token"
 
 AVAILABLE_BROWSERS: list[str] = [
 	'firefox',
@@ -64,9 +64,7 @@ BROWSER_FALLBACK_PATHS: dict[str, list[str]] = {
 	'brave-browser': [
 		r'C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe',
 		r'C:\Program Files (x86)\BraveSoftware\Brave-Browser\Application\brave.exe',
-		os.path.expandvars(
-			r'%LOCALAPPDATA%\BraveSoftware\Brave-Browser\Application\brave.exe'
-		),
+		os.path.expandvars(r'%LOCALAPPDATA%\BraveSoftware\Brave-Browser\Application\brave.exe'),
 	],
 	'opera': [
 		os.path.expandvars(r'%LOCALAPPDATA%\Programs\Opera\opera.exe'),

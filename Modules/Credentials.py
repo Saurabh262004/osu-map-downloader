@@ -1,6 +1,6 @@
 from Modules.Constants import SERVICE, TOKEN_URL
 
-def getCredentials():
+def getCredentials() -> tuple[str, str]:
 	import keyring
 	from Modules.GUI import editCredentials
 

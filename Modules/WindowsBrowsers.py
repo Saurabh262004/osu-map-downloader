@@ -26,7 +26,6 @@ def whichPathOnly(name: str) -> str | None:
 				return candidate
 	return None
 
-
 def getBrowserPathWindows(browser: str) -> str | None:
 	import os
 

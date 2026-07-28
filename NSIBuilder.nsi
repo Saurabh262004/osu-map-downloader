@@ -10,12 +10,12 @@ RequestExecutionLevel user
 InstallDir       "$LOCALAPPDATA\Programs\osuMapDownloader"
 InstallDirRegKey HKCU "Software\osuMapDownloader" "InstallDir"
 
-VIProductVersion "1.1.0.0"
+VIProductVersion "1.2.0.0"
 VIAddVersionKey /LANG=0 "ProductName"     "osu! Map Downloader"
 VIAddVersionKey /LANG=0 "FileDescription" "osu! Map Downloader Setup"
-VIAddVersionKey /LANG=0 "FileVersion"     "1.1.0.0"
-VIAddVersionKey /LANG=0 "ProductVersion"  "1.1.0.0"
-VIAddVersionKey /LANG=0 "LegalCopyright"  "Copyright (c) 2026 Saurabh"
+VIAddVersionKey /LANG=0 "FileVersion"     "1.2.0.0"
+VIAddVersionKey /LANG=0 "ProductVersion"  "1.2.0.0"
+VIAddVersionKey /LANG=0 "LegalCopyright"  "Copyright (c) 2026 Saurabh Jadhav"
 
 !define MUI_ABORTWARNING
 
@@ -80,8 +80,8 @@ Section "osu! Map Downloader" SecMain
   WriteRegStr   HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\osuMapDownloader" "QuietUninstallString" '"$INSTDIR\Uninstall.exe" /S'
   WriteRegStr   HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\osuMapDownloader" "InstallLocation"      "$INSTDIR"
   WriteRegStr   HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\osuMapDownloader" "DisplayIcon"          "$INSTDIR\osuMapDownloader.exe,0"
-  WriteRegStr   HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\osuMapDownloader" "Publisher"            ""
-  WriteRegStr   HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\osuMapDownloader" "DisplayVersion"       "1.0.0"
+  WriteRegStr   HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\osuMapDownloader" "Publisher"            "Saurabh Jadhav"
+  WriteRegStr   HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\osuMapDownloader" "DisplayVersion"       "1.2.0"
   WriteRegStr   HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\osuMapDownloader" "URLInfoAbout"         "https://github.com/Saurabh262004/osu-map-downloader"
   WriteRegDWORD HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\osuMapDownloader" "NoModify" 1
   WriteRegDWORD HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\osuMapDownloader" "NoRepair"  1

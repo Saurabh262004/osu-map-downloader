@@ -57,15 +57,18 @@ def resolveBeatmapsetID(beatmpID: int) -> int | None:
 	except:
 		return None
 
-def getDownloadURL(beatmapsetID: int, service: str) -> str:
-	if service == 'beatconnect':
-		return f'https://beatconnect.io/b/{beatmapsetID}'
+# returns a tuple of download urls (with video if available, without video)
+def getDownloadURLs(beatmapsetID: int, service: str) -> tuple[str, str] | None:
+	if service == 'beatconnect': # idk
+		return (f'https://beatconnect.io/b/{beatmapsetID}?novideo=0', f'https://beatconnect.io/b/{beatmapsetID}?novideo=1')
 
 	if service == 'nerinyan': # application/x-osu-beatmap-archive
-		return f'http://dl.nerinyan.moe/v2/d/{beatmapsetID}?nv=1'
+		return (f'http://dl.nerinyan.moe/v2/d/{beatmapsetID}?nv=0', f'http://dl.nerinyan.moe/v2/d/{beatmapsetID}?nv=1')
 
 	if service == 'catboy': # application/x-osu-beatmap-archive
-		return f'https://catboy.best/d/{beatmapsetID}'
+		return (f'https://catboy.best/d/{beatmapsetID}', f'https://catboy.best/d/{beatmapsetID}n')
 
 	if service == 'sayobot': # application/octet-stream
-		return f'https://dl.sayobot.cn/beatmaps/download/novideo/{beatmapsetID}'
+		return (f'https://dl.sayobot.cn/beatmaps/download/video/{beatmapsetID}', f'https://dl.sayobot.cn/beatmaps/download/novideo/{beatmapsetID}')
+
+	return None

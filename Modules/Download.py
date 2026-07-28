@@ -1,7 +1,7 @@
 # create a small tk window at top-left corner of the screen, put it on top
 # make one label and update that label as progress goes on:
 
-def directDownloadProcess(downloadURL: str, root, label):
+def download(downloadURL: str, root, label) -> bool:
 	import requests
 	from pathlib import Path
 	from Modules.Helpers import openFile

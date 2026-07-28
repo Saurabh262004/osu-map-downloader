@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import keyring
 from Modules.Constants import SERVICE, AVAILABLE_BROWSERS
-from Modules.Settings import getAutoDownload, toggleAutoDownload, getDefaultBrowser, setDefaultBrowser
+from Modules.Settings import getAutoDownload, toggleAutoDownload, getVideoDownloadPreference, toggleVideoDownloadPreference, getDefaultBrowser, setDefaultBrowser
 
 def applyOsuTheme(root: tk.Tk):
 	style = ttk.Style(root)
@@ -203,8 +203,6 @@ def askBeatmapAction() -> bool | None:
 	root.resizable(False, False)
 
 	applyOsuTheme(root)
-	onTop(root)
-	root.focus_force()
 
 	result = None
 
@@ -249,18 +247,33 @@ def askBeatmapAction() -> bool | None:
 		width=14
 	).grid(row=0, column=1, padx=5)
 
+	# Auto download checkbox
 	autoDownloadVar = tk.BooleanVar(value=getAutoDownload() == '1')
 
 	auto_check = ttk.Checkbutton(
 		main,
-		text="Automatically download beatmaps",
+		text="Automatic download",
 		variable=autoDownloadVar,
 		command=toggleAutoDownload
 	)
 
 	auto_check.grid(row=2, column=0, columnspan=3, pady=(5, 0))
 
+	# Video download preference checkbox
+	videoDownloadVar = tk.BooleanVar(value=getVideoDownloadPreference() == '1')
+
+	video_check = ttk.Checkbutton(
+		main,
+		text="Video download (if available)",
+		variable=videoDownloadVar,
+		command=toggleVideoDownloadPreference
+	)
+	video_check.grid(row=3, column=0, columnspan=3, pady=(5, 0))
+
 	root.protocol("WM_DELETE_WINDOW", cancel)
+
+	onTop(root)
+	root.focus_force()
 
 	root.mainloop()
 
@@ -273,7 +286,6 @@ def editCredentials():
 	root.resizable(False, False)
 
 	applyOsuTheme(root)
-	onTop(root)
 
 	main = ttk.Frame(root, padding=20)
 	main.grid()
@@ -318,6 +330,9 @@ def editCredentials():
 		command=save
 	).grid(row=3, column=0, columnspan=2, pady=(15, 0))
 
+	onTop(root)
+	root.focus_force()
+
 	root.mainloop()
 
 def createIdleWindow():
@@ -326,8 +341,6 @@ def createIdleWindow():
 	root.resizable(False, False)
 
 	applyOsuTheme(root)
-	onTop(root)
-	root.focus_force()
 
 	main = ttk.Frame(root, padding=20)
 	main.grid()
@@ -376,15 +389,29 @@ def createIdleWindow():
 
 	auto_check = ttk.Checkbutton(
 		main,
-		text="Automatically download beatmaps",
+		text="Automatic download",
 		variable=autoDownloadVar,
 		command=toggleAutoDownload
 	)
 	auto_check.grid(row=4, column=0, columnspan=2, sticky="w", pady=(0, 12))
 
+	# video download preference checkbox
+	videoDownloadVar = tk.BooleanVar(value=getVideoDownloadPreference() == '1')
+
+	video_check = ttk.Checkbutton(
+		main,
+		text="Video download (if available)",
+		variable=videoDownloadVar,
+		command=toggleVideoDownloadPreference
+	)
+	video_check.grid(row=5, column=0, columnspan=2, sticky="w", pady=(0, 12))
+
 	# small spacing consistency
 	for i in range(2):
 		main.columnconfigure(i, weight=1)
+
+	onTop(root)
+	root.focus_force()
 
 	root.mainloop()
 

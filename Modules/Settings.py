@@ -1,6 +1,8 @@
 import keyring
 from Modules.Constants import SERVICE
 
+# ==== auto download preference ====
+
 def disableAutoDownload():
 	keyring.set_password(
 		SERVICE,
@@ -15,7 +17,7 @@ def enableAutoDownload():
 		'1'
 	)
 
-def getAutoDownload():
+def getAutoDownload() -> str | None:
 	return keyring.get_password(
 		SERVICE,
 		'auto_download'
@@ -27,7 +29,37 @@ def toggleAutoDownload():
 	else:
 		enableAutoDownload()
 
-def getDefaultBrowser():
+# ==== video download preference ====
+
+def enableVideoDownloadPreference():
+	keyring.set_password(
+		SERVICE,
+		'video_download',
+		'1'
+	)
+
+def disableVideoDownloadPreference():
+	keyring.set_password(
+		SERVICE,
+		'video_download',
+		'0'
+	)
+
+def getVideoDownloadPreference() -> str | None:
+	return keyring.get_password(
+		SERVICE,
+		'video_download'
+	)
+
+def toggleVideoDownloadPreference():
+	if (getVideoDownloadPreference() == '1'):
+		disableVideoDownloadPreference()
+	else:
+		enableVideoDownloadPreference()
+
+# === default browser preference ====
+
+def getDefaultBrowser() -> str:
 	browser = keyring.get_password(
 		SERVICE,
 		'browser'
