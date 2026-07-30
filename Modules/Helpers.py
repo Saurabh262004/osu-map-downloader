@@ -63,7 +63,7 @@ def getDownloadURLs(beatmapsetID: int, service: str) -> tuple[str, str] | None:
 		return (f'https://beatconnect.io/b/{beatmapsetID}?novideo=0', f'https://beatconnect.io/b/{beatmapsetID}?novideo=1')
 
 	if service == 'nerinyan': # application/x-osu-beatmap-archive
-		return (f'http://dl.nerinyan.moe/v2/d/{beatmapsetID}?nv=0', f'http://dl.nerinyan.moe/v2/d/{beatmapsetID}?nv=1')
+		return (f'https://dl.nerinyan.moe/v2/d/{beatmapsetID}?nv=0', f'https://dl.nerinyan.moe/v2/d/{beatmapsetID}?nv=1')
 
 	if service == 'catboy': # application/x-osu-beatmap-archive
 		return (f'https://catboy.best/d/{beatmapsetID}', f'https://catboy.best/d/{beatmapsetID}n')
