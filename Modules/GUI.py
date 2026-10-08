@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-import keyring
 from Modules.Constants import SERVICE, AVAILABLE_BROWSERS
-from Modules.Settings import getAutoDownload, toggleAutoDownload, getVideoDownloadPreference, toggleVideoDownloadPreference, getDefaultBrowser, setDefaultBrowser
 
 def applyOsuTheme(root: tk.Tk):
 	style = ttk.Style(root)
@@ -202,8 +200,6 @@ def askBeatmapAction() -> bool | None:
 	root.title("osu! Map Downloader")
 	root.resizable(False, False)
 
-	applyOsuTheme(root)
-
 	result = None
 
 	def download():
@@ -248,8 +244,10 @@ def askBeatmapAction() -> bool | None:
 	).grid(row=0, column=1, padx=5)
 
 	# Auto download checkbox
+	from Modules.Settings import getAutoDownload
 	autoDownloadVar = tk.BooleanVar(value=getAutoDownload() == '1')
 
+	from Modules.Settings import toggleAutoDownload
 	auto_check = ttk.Checkbutton(
 		main,
 		text="Automatic download",
@@ -260,8 +258,10 @@ def askBeatmapAction() -> bool | None:
 	auto_check.grid(row=2, column=0, columnspan=3, pady=(5, 0))
 
 	# Video download preference checkbox
+	from Modules.Settings import getVideoDownloadPreference
 	videoDownloadVar = tk.BooleanVar(value=getVideoDownloadPreference() == '1')
 
+	from Modules.Settings import toggleVideoDownloadPreference
 	video_check = ttk.Checkbutton(
 		main,
 		text="Video download (if available)",
@@ -272,6 +272,7 @@ def askBeatmapAction() -> bool | None:
 
 	root.protocol("WM_DELETE_WINDOW", cancel)
 
+	applyOsuTheme(root)
 	onTop(root)
 	root.focus_force()
 
@@ -284,8 +285,6 @@ def editCredentials():
 	root = tk.Tk()
 	root.title("osu! API Credentials")
 	root.resizable(False, False)
-
-	applyOsuTheme(root)
 
 	main = ttk.Frame(root, padding=20)
 	main.grid()
@@ -311,6 +310,8 @@ def editCredentials():
 	clientSecretEntry = ttk.Entry(main, width=35, show="*")
 	clientSecretEntry.grid(row=2, column=1, pady=5)
 
+	import keyring
+
 	clientID = keyring.get_password(SERVICE, 'client_id')
 	clientSecret = keyring.get_password(SERVICE, 'client_secret')
 
@@ -330,6 +331,7 @@ def editCredentials():
 		command=save
 	).grid(row=3, column=0, columnspan=2, pady=(15, 0))
 
+	applyOsuTheme(root)
 	onTop(root)
 	root.focus_force()
 
@@ -339,8 +341,6 @@ def createIdleWindow():
 	root = tk.Tk()
 	root.title("osu! Map Downloader")
 	root.resizable(False, False)
-
-	applyOsuTheme(root)
 
 	main = ttk.Frame(root, padding=20)
 	main.grid()
@@ -367,6 +367,7 @@ def createIdleWindow():
 		text="Default browser:"
 	).grid(row=2, column=0, sticky="w", pady=(0, 5))
 
+	from Modules.Settings import getDefaultBrowser
 	browserVar = tk.StringVar(value=getDefaultBrowser())
 
 	browserDropdown = ttk.Combobox(
@@ -380,13 +381,16 @@ def createIdleWindow():
 	browserDropdown.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(0, 10))
 
 	def onBrowserSelected(_event):
+		from Modules.Settings import setDefaultBrowser
 		setDefaultBrowser(browserVar.get())
 
 	browserDropdown.bind("<<ComboboxSelected>>", onBrowserSelected)
 
 	# Auto Download Checkbox
+	from Modules.Settings import getAutoDownload
 	autoDownloadVar = tk.BooleanVar(value=getAutoDownload() == '1')
 
+	from Modules.Settings import toggleAutoDownload
 	auto_check = ttk.Checkbutton(
 		main,
 		text="Automatic download",
@@ -396,8 +400,10 @@ def createIdleWindow():
 	auto_check.grid(row=4, column=0, columnspan=2, sticky="w", pady=(0, 12))
 
 	# video download preference checkbox
+	from Modules.Settings import getVideoDownloadPreference
 	videoDownloadVar = tk.BooleanVar(value=getVideoDownloadPreference() == '1')
 
+	from Modules.Settings import toggleVideoDownloadPreference
 	video_check = ttk.Checkbutton(
 		main,
 		text="Video download (if available)",
@@ -410,6 +416,7 @@ def createIdleWindow():
 	for i in range(2):
 		main.columnconfigure(i, weight=1)
 
+	applyOsuTheme(root)
 	onTop(root)
 	root.focus_force()
 
@@ -420,9 +427,6 @@ def createProgressWindow() -> tuple[tk.Tk, ttk.Label]:
 	root.overrideredirect(True)
 	root.geometry("200x50+0+0")
 
-	applyOsuTheme(root)
-	onTop(root)
-
 	main = ttk.Frame(root)
 	main.pack(expand=True, fill="both", padx=10, pady=10)
 
@@ -432,6 +436,9 @@ def createProgressWindow() -> tuple[tk.Tk, ttk.Label]:
 		font=("Segoe UI", 10)
 	)
 	label.pack(expand=True, fill="both")
+
+	applyOsuTheme(root)
+	onTop(root)
 
 	root.update_idletasks()
 

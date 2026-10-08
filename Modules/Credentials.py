@@ -2,7 +2,6 @@ from Modules.Constants import SERVICE, TOKEN_URL
 
 def getCredentials() -> tuple[str, str]:
 	import keyring
-	from Modules.GUI import editCredentials
 
 	clientID = keyring.get_password(
 		SERVICE,
@@ -15,6 +14,8 @@ def getCredentials() -> tuple[str, str]:
 	)
 
 	if not clientID or not clientSecret:
+		from Modules.GUI import editCredentials
+
 		editCredentials()
 
 		clientID = keyring.get_password(

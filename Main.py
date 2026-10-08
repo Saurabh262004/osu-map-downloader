@@ -1,12 +1,8 @@
-from traceback import print_exc
-from urllib.parse import urlparse
-from Modules.Helpers import openInBrowser, resolveBeatmapsetID, getDownloadURLs
-from Modules.GUI import askBeatmapAction
-
 def startProcess(beatmapsetID: int, root, label):
+	from traceback import print_exc
+	import requests
 	from Modules.Download import download
 	from Modules.Settings import getVideoDownloadPreference
-	import requests
 
 	videoPreference = getVideoDownloadPreference() == '1'
 
@@ -16,6 +12,8 @@ def startProcess(beatmapsetID: int, root, label):
 		'beatconnect',
 		'sayobot'
 	]
+
+	from Modules.Helpers import getDownloadURLs
 
 	for service in services:
 		label.config(text=f'Trying {service}...')
@@ -68,7 +66,8 @@ def startProcess(beatmapsetID: int, root, label):
 	return False
 
 def main(url):
-	from Modules.Settings import getAutoDownload
+	from urllib.parse import urlparse
+	from Modules.Helpers import openInBrowser
 
 	parsed = urlparse(url if '://' in url else f'https://{url}')
 	path = parsed.path
@@ -88,10 +87,12 @@ def main(url):
 		openInBrowser(url)
 		return None
 
+	from Modules.Settings import getAutoDownload
 	autoDownload = getAutoDownload() == '1'
 
 	if autoDownload is False:
 		# ask to either 1. download the beatmapset, 2. open the page in browser
+		from Modules.GUI import askBeatmapAction
 		action = askBeatmapAction()
 
 		if action is None:
@@ -110,6 +111,8 @@ def main(url):
 
 	# it it's a beatmap url, get the beatmapset id via osu api v2
 	if URLType == 'beatmaps' or URLType == 'b':
+		from Modules.Helpers import resolveBeatmapsetID
+
 		print('resolving beatmapset id')
 		label.config(text=f"Resolving beatmapset id...")
 		root.update_idletasks()

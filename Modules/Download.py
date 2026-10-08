@@ -1,7 +1,6 @@
 def download(downloadURL: str, root, label) -> bool:
 	import requests
 	from pathlib import Path
-	from Modules.Helpers import openFile
 
 	downloads = Path.home() / "Downloads"
 
@@ -72,6 +71,7 @@ def download(downloadURL: str, root, label) -> bool:
 	label.config(text=f"Opening file...")
 	root.update_idletasks()
 
+	from Modules.Helpers import openFile
 	openFile(str(filePath))
 
 	return True
